@@ -1,6 +1,5 @@
 body{
     background-color: black;
-    padding-top: 15px;
 }
 
 .text-center{
@@ -11,20 +10,35 @@ body{
 .col-md-6{
     color: black;
     background-color: white;
-    border-radius: 10px;
+    border-radius: 20px;
     padding: 20px;
-    margin-bottom: 30px; 
+    border: 10px solid black;
+    margin-bottom: 50px;
+    
 }
 
-
+#corFonte, #links, #tamFonte {
+    margin-bottom: 25px;
+}
+ 
 .container{
     padding: 20px;
 }
 
-h3{
+h2{
     color: white;
 }
 
 .code-html{
-    margin-bottom: 30px;
+    margin-bottom: 40px;
+}
+
+input.form-control, select.form-control {
+    border: 1px solid black; 
+    border-radius: 5px;
+    padding: 5px; 
+}
+
+button.btn.btn-primary {
+    margin-top: 60px;  
 }

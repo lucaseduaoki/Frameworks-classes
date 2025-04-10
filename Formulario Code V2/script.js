@@ -7,31 +7,86 @@ function configEstiloCabecalho() {
     bg = document.getElementById("corFundo").value;
     corFonte = document.getElementById("corFonte").value;
     tamFonte = document.getElementById("tamFonte").value;
-    ctxCabecalho = "#cabecalho{\n background-color:" + bg + ";\n";
-    ctxCabecalho += " color:" + corFonte + ";\n";
-    ctxCabecalho += " font-size:" + tamFonte + "pt;\n}\n";
+    let altura = document.getElementById("alturaCabecalho").value;
+    let largura = document.getElementById("larguraCabecalho").value;
+    let fonte = document.getElementById("fonteCabecalho").value;
+    ctxCabecalho = "#cabecalho {\n background-color: " + bg + ";\n";
+    ctxCabecalho += " color: " + corFonte + ";\n";
+    ctxCabecalho += " font-size: " + tamFonte + "pt;\n";
+    if (altura) ctxCabecalho += " height: " + altura + "px;\n";
+    if (largura) ctxCabecalho += " width: " + largura + "%;\n";
+    if (fonte) ctxCabecalho += " font-family: '" + fonte + "';\n";
+    ctxCabecalho += "}\n";
+    
+
     return ctxCabecalho;
 }
 function configEstiloLinks() {
-    corLink = document.getElementById("corLinks").value;
-    estiloLinks = document.querySelector('input[name="estiloLinks"]:checked').value;
-    ctxLinks = "a{\n color:" + corLink + ";\n";
-    let aux = estiloLinks == "0" ? "none" : "underline";
-    ctxLinks += " text-decoration:" + aux + ";\n}\n";
+    let corLink = document.getElementById("corLinks").value;
+    let estiloLinks = document.querySelector('input[name="estiloLinks"]:checked').value;
+
+    ctxLinks = "a {\n color: " + corLink + ";\n";
+    ctxLinks += " text-decoration: " + (estiloLinks === "0" ? "none" : "underline") + ";\n";
+    ctxLinks += "}\n";
+
     return ctxLinks;
 }
-function configHtmlLinks() {
-    links = document.getElementsByName("links");
-    href = document.getElementsByName("href");
-    ctxLinks = "";
-    for (let i = 0; i < vetLinks.length; i++) {
-        href = href[i].value.split("\\");
-        ctxLinks += '<a href="' + href[href.length - 1] + '">' + links[i].value + '</a>';
-        return ctxLinks;
+
+function configEstiloHoverLinks() {
+    const estiloHover = document.getElementById("hoverLinks").value;
+    const estiloBase = document.querySelector('input[name="estiloLinks"]:checked')?.value;
+
+    let hoverCSS = "a:hover {\n";
+
+    if (estiloHover === "negrito") {
+        hoverCSS += " font-weight: bold;\n";
+    } else if (estiloHover === "sublinhado" && estiloBase === "0") {
+        // Só adiciona sublinhado no hover se o estilo base for "não sublinhado"
+        hoverCSS += " text-decoration: underline;\n";
+    } else if (estiloHover === "cor") {
+        hoverCSS += " color: #FFFF00;\n"; // Rosa choque
+    } else {
+        return "";
     }
+
+    hoverCSS += "}\n";
+    return hoverCSS;
+}
+
+function configHtmlLinks() {
+    const linkTexts = document.getElementsByName("links");
+    const linkFiles = document.getElementsByName("href");
+    let htmlLinks = "";
+
+    for (let i = 0; i < linkTexts.length; i++) {
+        let filePath = linkFiles[i].value.split("\\");
+        let fileName = filePath[filePath.length - 1];
+        htmlLinks += `<a href="${fileName}">${linkTexts[i].value}</a><br>\n`;
+    }
+
+    return htmlLinks;
 }
 function addHtmlLinks() {
-    const novaDivLink = document.createElement("div")
+    const container = document.getElementById("linksContainer");
+
+    const newDiv = document.createElement("div");
+    newDiv.className = "d-flex align-items-center mb-2";
+
+    const inputTexto = document.createElement("input");
+    inputTexto.type = "text";
+    inputTexto.name = "links";
+    inputTexto.className = "form-control mr-1";
+    inputTexto.placeholder = "Texto do link";
+    inputTexto.style.flexGrow = "1";
+    
+    const inputHref = document.createElement("input");
+    inputHref.type = "file";
+    inputHref.name = "href";
+    inputHref.className = "form-control mx-2";
+
+    newDiv.appendChild(inputTexto);
+    newDiv.appendChild(inputHref);
+    container.appendChild(newDiv);
 }
 function configHTMLCabecalho() {
     let aux = document.querySelector("#textoCabecalho").value;
@@ -43,10 +98,12 @@ function gerarCodigo() {
     let codeCSS = document.querySelector("#codeCSS");
     let css = configEstiloCabecalho();
     css += configEstiloLinks();
+    css += configEstiloHoverLinks();
     codeCSS.value = css;
     //Código para HTML
     let codeHTML = document.querySelector("#codeHTML");
     ctxHTML = "<html>\n<head>\n" +
+        "<meta charset='UTF-8'>\n" +
         "<link rel='stylesheet' href='estilo.css'>\n" +
         "<title>Miha página</title>\n" +
         "</head>\n<body>" +

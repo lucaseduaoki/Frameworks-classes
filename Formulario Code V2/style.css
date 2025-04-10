@@ -14,7 +14,6 @@ body {
     padding: 20px;
     border: 10px solid black;
     margin-bottom: 50px;
-
 }
 
 h1 {
@@ -47,5 +46,26 @@ select.form-control {
 }
 
 button.btn.btn-primary {
-    margin-top: 60px;
+    margin-top: 0px;
+}
+
+#linksContainer .form-control {
+    flex: 1;
+    margin-right: 10px;
+}
+
+#linksContainer .btn {
+    flex: 0 0 auto;
+}
+
+select.form-control:hover {
+    background-color: white; 
+}
+
+.hoverLinks{
+    margin-top: 35px;
+}
+
+#geraCode{
+    margin-top: 80px;
 }

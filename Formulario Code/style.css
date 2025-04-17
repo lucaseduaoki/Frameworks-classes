@@ -1,44 +1,78 @@
-body{
+body {
     background-color: black;
 }
 
-.text-center{
+.text-center {
     color: white;
     padding-bottom: 15px;
 }
 
-.col-md-6{
+.col-md-6 {
     color: black;
     background-color: white;
     border-radius: 20px;
     padding: 20px;
     border: 10px solid black;
     margin-bottom: 50px;
-    
 }
 
-#corFonte, #links, #tamFonte {
-    margin-bottom: 25px;
-}
- 
-.container{
-    padding: 20px;
-}
-
-h2{
+h1 {
     color: white;
 }
 
-.code-html{
+#corFonte,
+#links,
+#tamFonte {
+    margin-bottom: 25px;
+}
+
+.container {
+    padding: 20px;
+}
+
+h2 {
+    color: white;
+}
+
+.code-html {
     margin-bottom: 40px;
 }
 
-input.form-control, select.form-control {
-    border: 1px solid black; 
+input.form-control,
+select.form-control {
+    border: 1px solid black;
     border-radius: 5px;
-    padding: 5px; 
+    padding: 5px;
 }
 
 button.btn.btn-primary {
-    margin-top: 60px;  
+    margin-top: 0px;
+}
+
+#linksContainer .form-control {
+    flex: 1;
+    margin-right: 10px;
+}
+
+#linksContainer .btn {
+    flex: 0 0 auto;
+}
+
+select.form-control:hover {
+    background-color: white; 
+}
+
+.hoverLinks{
+    margin-top: 35px;
+}
+
+#geraCode, #pagina{
+    margin-top: 90px;
+}
+
+#containerCodPreview{
+    width: 70%;
+    padding: 10px;
+    box-sizing: border-box;
+    position: relative;
 }

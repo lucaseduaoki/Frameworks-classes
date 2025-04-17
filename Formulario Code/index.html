@@ -15,8 +15,12 @@
         <div class="text-center mb-3">
             <h1>PAGEMAKER</h1>
             <h1>Gerador de código HTML e CSS</h1>
-        </div>  
-    
+
+            <h1>Arquivo HTML</h1>
+            Nome do Arquivo HTML
+            <input type="text" id="nomeHTML" name="nomeHTML" class="form-control"><br>
+        </div>
+
         <div class="row mb-4">
             <div class="col-md-6">
                 <h3>Cabeçalho</h3>
@@ -47,8 +51,8 @@
                         <option value="#FFA500" style="background-color: #FFA500; color: white">Laranja</option>
                         <option value="#800080" style="background-color: #800080; color: white">Roxo</option>
                     </select>
-                </div>    
-                
+                </div>
+
                 <div class="form-group">
                     <label for="tamFonte">Tamanho Fonte</label>
                     <select name="tamFonte" id="tamFonte" class="form-control">
@@ -61,19 +65,42 @@
                         <option value="17">17</option>
                     </select>
                 </div>
+
+                <div class="form-group">
+                    <label for="alturaCabecalho">Altura do cabeçalho (em px)</label>
+                    <input type="number" id="alturaCabecalho" name="alturaCabecalho" class="form-control"><br>
+                </div>
+                <div class="form-group">
+                    <label for="larguraCabecalho">Largura do cabeçalho (%)</label>
+                    <input type="number" id="larguraCabecalho" name="larguraCabecalho" class="form-control"><br>
+                </div>
+
+                <div class="form-group">
+                    <label for="fonteCabecalho">Fonte do cabeçalho</label>
+                    <select id="fonteCabecalho" name="fonteCabecalho" class="form-control">
+                        <option value="">-- Selecione --</option>
+                        <option value="Arial">Arial</option>
+                        <option value="Courier New">Courier New</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                        <option value="Verdana">Verdana</option>
+                    </select>
+                </div>
             </div>
 
             <div class="col-md-6">
                 <h3>Links</h3>
                 <div class="form-group">
-                    <label for="links">Texto para os links</label>
-                    <input type="text" name="links" id="links" placeholder="link1; link2; link3; link4...." class="form-control">
+                    <label for="links">Texto para os links</label><br>
+                    <p>Esta página não tem Links</p>
+                    <input type="checkbox" id="noLinks" onclick="removeLinks(this)"> <label for="noLinks">Sem links</label><br><br>
+
                 </div>
 
                 <div class="form-group">
                     <label for="corLinks">Cor do link</label>
                     <select name="corLinks" id="corLinks" class="form-control">
-                        <option value="FF0000" style="background-color: #FF0000; color: white">Vermelho</option>
+                        <option value="#FF0000" style="background-color: #FF0000; color: white">Vermelho</option>
                         <option value="#00FF00" style="background-color: #00FF00; color: white">Verde</option>
                         <option value="#0000FF" style="background-color: #0000FF; color: white">Azul</option>
                         <option value="#FFFF00" style="background-color: #FFFF00; color: white">Amarelo</option>
@@ -91,26 +118,62 @@
                     <div class="form-check form-check-inline">
                         <input type="radio" name="estiloLinks" id="estiloLinks2" value="0">
                         <label for="estiloLinks">Não Sublinhado</label>
-                    </div> 
+                    </div>
                 </div>
 
-                <button class="btn btn-primary" onclick="gerarCodigo()">Gerar Código</button>
+                <div class="form-group">
+                    <label class="hoverLinks"><a>Efeito hover no link</a></label>
+                    <select name="hoverLinks" id="hoverLinks" class="form-control">
+                        <option value="">-- Selecione --</option>
+                        <option value="negrito">Negrito</option>
+                        <option value="sublinhado">Sublinhado</option>
+                        <option value="cor">Mudar cor</option>
+                    </select><br>
+                </div>
+
+                <div class="form-group">
+                    <div id="linksContainer">
+                        <div class="d-flex align-items-center mb-2">
+                            <input type="text" name="links" class="form-control me-2" placeholder="Texto do link" style="flex: 2;">
+                            <input type="file" name="href" class="form-control me-2" style="flex: 2;">
+                            <button type="button" class="btn btn-primary" onclick="addHtmlLinks()" style="flex: 0 0 auto;">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" id="geraCode" onclick="mostraOcultaDiv('containerPreview'), gerarCodigo()">Gerar Código</button>
+                <button class="btn btn-primary" id="pagina" onclick="mostraOcultaDiv('containerPreview'), renderIframe()">Visualizar Página</button>
             </div>
         </div>
 
-        <div class="code-html">
-            <div class="form-group">
-                <label class="html"><h2>HTML</h2></label>
-                <textarea class="form-control" cols="100" rows="30" id="codeHTML"></textarea><br>
-                <button class="btn btn-success" onclick="download('codeHTML', 'index.html')">Download do código</button>
-            </div>
-        </div>
+        <div id="containerPrimary">
 
-        <div class="code-css">
-            <div class="form-group">
-                <label class="css"><h2>CSS</h2></label>
-                <textarea class="form-control" cols="100" rows="30" id="codeCSS"></textarea><br>
-                <button class="btn btn-success" onclick="download('codeCSS', 'estilo.css')">Download do código</button>
+            <div id="containerPreview" class="content">
+                <div class="form-group">
+                    <div id="previewContainer">
+                        <iframe id="pagina"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-html">
+                <div class="form-group">
+                    <label class="html">
+                        <h2>HTML</h2>
+                    </label>
+                    <textarea class="form-control" cols="100" rows="30" id="codeHTML"></textarea><br>
+                    <button class="btn btn-success" onclick="download('codeHTML', 'index.html')">Download do código</button>
+                </div>
+            </div>
+
+            <div class="code-css">
+                <div class="form-group">
+                    <label class="css">
+                        <h2>CSS</h2>
+                    </label>
+                    <textarea class="form-control" cols="100" rows="30" id="codeCSS"></textarea><br>
+                    <button class="btn btn-success" onclick="download('codeCSS', 'estilo.css')">Download do código</button>
+                </div>
             </div>
         </div>
     </div>
@@ -119,4 +182,5 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>

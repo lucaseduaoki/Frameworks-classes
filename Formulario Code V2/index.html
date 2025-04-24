@@ -91,71 +91,120 @@
             <div class="col-md-6">
                 <h3>Links</h3>
                 <div class="form-group">
-                    <label for="links">Texto para os links</label><br>
-                    <div id="linksContainer">
-                        <div class="d-flex align-items-center mb-2">
-                            <input type="text" name="links" class="form-control me-2" placeholder="Texto do link" style="flex: 2;">
-                            <input type="file" name="href" class="form-control me-2" style="flex: 2;">
-                            <button type="button" class="btn btn-primary" onclick="addHtmlLinks()" style="flex: 0 0 auto;">+</button>
+                    <label for="links" style="font-size: 20px;">Texto para os links</label><br><br>
+                    <div class="d-flex align-items-center mb-2">
+                        <p>Esta página não tem Links</p>
+                        <input type="checkbox" id="noLinks" onclick="removeLinks(this)" style="flex: 0 0 auto;"><br><br>
+                    </div>
+                </div>
+
+                <div id="areaLink">
+                    <div class="form-group">
+                        <label for="corLinks">Cor do link</label>
+                        <select name="corLinks" id="corLinks" class="form-control">
+                            <option value="#FF0000" style="background-color: #FF0000; color: white">Vermelho</option>
+                            <option value="#00FF00" style="background-color: #00FF00; color: white">Verde</option>
+                            <option value="#0000FF" style="background-color: #0000FF; color: white">Azul</option>
+                            <option value="#FFFF00" style="background-color: #FFFF00; color: white">Amarelo</option>
+                            <option value="#FFA500" style="background-color: #FFA500; color: white">Laranja</option>
+                            <option value="#800080" style="background-color: #800080; color: white">Roxo</option>
+                        </select><br>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="estiloLinks">Estilo do link</label><br>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" name="estiloLinks" id="estiloLinks1" value="1">
+                            <label for="estiloLinks">Sublinhado</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" name="estiloLinks" id="estiloLinks2" value="0">
+                            <label for="estiloLinks">Não Sublinhado</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="hoverLinks"><a>Efeito hover no link</a></label>
+                        <select name="hoverLinks" id="hoverLinks" class="form-control">
+                            <option value="">-- Selecione --</option>
+                            <option value="negrito">Negrito</option>
+                            <option value="sublinhado">Sublinhado</option>
+                            <option value="cor">Mudar cor</option>
+                        </select><br>
+                    </div>
+
+                    <div class="form-group">
+                        <div id="linksContainer">
+                            <div class="d-flex align-items-center mb-2">
+                                <input type="text" name="links" class="form-control me-2" placeholder="Texto do link" style="flex: 2;">
+                                <input type="file" name="href" class="form-control me-2" style="flex: 2;">
+                                <button type="button" class="btn btn-primary" onclick="addHtmlLinks()" style="flex: 0 0 auto;">+</button>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="corLinks">Cor do link</label>
-                    <select name="corLinks" id="corLinks" class="form-control">
-                        <option value="#FF0000" style="background-color: #FF0000; color: white">Vermelho</option>
-                        <option value="#00FF00" style="background-color: #00FF00; color: white">Verde</option>
-                        <option value="#0000FF" style="background-color: #0000FF; color: white">Azul</option>
-                        <option value="#FFFF00" style="background-color: #FFFF00; color: white">Amarelo</option>
-                        <option value="#FFA500" style="background-color: #FFA500; color: white">Laranja</option>
-                        <option value="#800080" style="background-color: #800080; color: white">Roxo</option>
-                    </select><br>
-                </div>
-
-                <div class="form-group">
-                    <label for="estiloLinks">Estilo do link</label><br>
-                    <div class="form-check form-check-inline">
-                        <input type="radio" name="estiloLinks" id="estiloLinks1" value="1">
-                        <label for="estiloLinks">Sublinhado</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input type="radio" name="estiloLinks" id="estiloLinks2" value="0">
-                        <label for="estiloLinks">Não Sublinhado</label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="hoverLinks"><a>Efeito hover no link</a></label>
-                    <select name="hoverLinks" id="hoverLinks" class="form-control">
-                        <option value="">-- Selecione --</option>
-                        <option value="negrito">Negrito</option>
-                        <option value="sublinhado">Sublinhado</option>
-                        <option value="cor">Mudar cor</option>
-                    </select><br>
-                </div>
-
-                <button class="btn btn-primary" id="geraCode" onclick="gerarCodigo()">Gerar Código</button>
+                <button class="btn btn-primary" id="geraCode" onclick="mostraOcultaDiv('containerPreview'), gerarCodigo()">Gerar Código</button>
+                <button class="btn btn-primary" id="pagina" onclick="mostraOcultaDiv('containerPreview'), renderIframe()">Visualizar Página</button>
             </div>
         </div>
 
-        <div class="code-html">
-            <div class="form-group">
-                <label class="html">
-                    <h2>HTML</h2>
-                </label>
-                <textarea class="form-control" cols="100" rows="30" id="codeHTML"></textarea><br>
-                <button class="btn btn-success" onclick="download('codeHTML', 'index.html')">Download do código</button>
+        <div class="row mb-4" id="content">
+            <div class="col-md-12">
+                <h1 class="text-center">Conteúdo</h1>
+                <div class="form-group mb-3">
+                    <label for="txtConteudo" style="font-size: 18px;">Texto</label>
+                    <textarea id="txtConteudo" cols="50" rows="10" class="form-control"></textarea>
+                </div>
+        
+                <div class="form-group mb-3">
+                    <label for="imagem">Imagem</label>
+                    <input type="file" id="imagem" class="form-control">
+                </div>
+        
+                <div class="form-row d-flex justify-content-between">
+                    <div class="form-group me-2" style="flex: 1;">
+                        <label for="largura">Largura (px)</label>
+                        <input type="number" id="largura" class="form-control">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label for="altura">Altura (px)</label>
+                        <input type="number" id="altura" class="form-control">
+                    </div>
+                </div>
+                <hr>
             </div>
         </div>
+        
 
-        <div class="code-css">
-            <div class="form-group">
-                <label class="css">
-                    <h2>CSS</h2>
-                </label>
-                <textarea class="form-control" cols="100" rows="30" id="codeCSS"></textarea><br>
-                <button class="btn btn-success" onclick="download('codeCSS', 'estilo.css')">Download do código</button>
+        <div id="containerPrimary">
+
+            <div id="containerPreview" class="content">
+                <div class="form-group">
+                    <div id="previewContainer">
+                        <iframe id="pagina"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-html">
+                <div class="form-group">
+                    <label class="html">
+                        <h2>HTML</h2>
+                    </label>
+                    <textarea class="form-control" cols="100" rows="30" id="codeHTML"></textarea><br>
+                    <button class="btn btn-success" onclick="download('codeHTML', 'index.html')">Download do código</button>
+                </div>
+            </div>
+
+            <div class="code-css">
+                <div class="form-group">
+                    <label class="css">
+                        <h2>CSS</h2>
+                    </label>
+                    <textarea class="form-control" cols="100" rows="30" id="codeCSS"></textarea><br>
+                    <button class="btn btn-success" onclick="download('codeCSS', 'estilo.css')">Download do código</button>
+                </div>
             </div>
         </div>
     </div>

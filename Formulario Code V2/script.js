@@ -2,6 +2,7 @@ var ctxCabecalho;
 var ctxLinks;
 var ctxConteudo;
 var ctxRodape;
+var ancora=true;
 
 function configEstiloCabecalho() {
     bg = document.getElementById("corFundo").value;
@@ -125,4 +126,63 @@ function download(campo, arquivo) {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+}
+
+function criarLinks() {
+    pai=document.getElementById("areaLinks");
+    link=document.createElement("input");
+    link.setAttribute("type","text");
+     link.setAttribute("name","links");
+     link.setAttribute("id","links");
+     link.setAttribute("placeholder","nome do link");
+     href=document.createElement("input");
+     href.setAttribute("type","file");
+     href.setAttribute("name","href");
+     href.setAttribute("id","file");
+     bt=document.createElement("button");
+     bt.setAttribute("onclick","criarLinks()");
+     bt.innerText="+";
+    pai.appendChild(link);
+     pai.appendChild(href);
+     pai.appendChild(bt);
+ }
+
+function removeLinks(check){
+    const areaLink = document.querySelector("#areaLink");
+
+    if(check.checked) {
+        areaLink.style.display = "none"
+        ancora=false;
+    }
+    else {
+        areaLink.style.display = "block";
+        ancora=true;
+    }
+ }
+
+function renderIframe(){
+    const iframe = document.getElementById('pagina')
+    const htmlCode = document.getElementById('codeHTML').value
+    const cssCode = document.getElementById('codeCSS').value
+
+    const parser = new DOMParser()
+    const doc = parser.parseFromString(htmlCode, 'text/html')
+
+    const style = document.createElement('style');
+    style.textContent = cssCode;
+
+    if(doc.head){
+        doc.head.appendChild(style)
+    }
+
+    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+    iframeDoc.open();
+    iframeDoc.write('<!DOCTYPE html>\n' + doc.documentElement.outerHTML);
+    iframeDoc.close();
+}
+
+function mostraOcultaDiv(id){
+    const divs = document.querySelectorAll('.content')
+    divs.forEach(div => div.classList.remove('active'))
+    document.getElementById(id).classList.add('active')
 }

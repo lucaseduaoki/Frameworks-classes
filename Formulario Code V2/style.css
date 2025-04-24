@@ -66,6 +66,32 @@ select.form-control:hover {
     margin-top: 35px;
 }
 
-#geraCode{
-    margin-top: 80px;
+#content {
+    color: black;
+    background-color: white;
+    border-radius: 20px;
+    padding: 15px;
+    border: 10px solid black;
+    margin-bottom: 30px;
 }
+
+#content h1{
+    color: black;
+    font-size: 35px;
+}
+
+#txtConteudo{
+    border: 1px solid black;
+}
+
+#geraCode, #pagina{
+    margin-top: 90px;
+}
+
+#containerCodPreview{
+    width: 70%;
+    padding: 10px;
+    box-sizing: border-box;
+    position: relative;
+}
+

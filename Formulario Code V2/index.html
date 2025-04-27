@@ -143,9 +143,6 @@
                         </div>
                     </div>
                 </div>
-
-                <button class="btn btn-primary" id="geraCode" onclick="mostraOcultaDiv('containerPreview'), gerarCodigo()">Gerar Código</button>
-                <button class="btn btn-primary" id="pagina" onclick="mostraOcultaDiv('containerPreview'), renderIframe()">Visualizar Página</button>
             </div>
         </div>
 
@@ -173,15 +170,19 @@
                     </div>
                 </div>
                 <hr>
+                <div class="d-flex justify-content-center gap-3 mt-4">
+                    <button class="btn btn-primary" id="containerCod" onclick="mostraOcultaDiv('containerPreview'), gerarCodigo()">Gerar Código</button>
+                    <button class="btn btn-primary" id="containerPreview" onclick="mostraOcultaDiv('containerPreview'), renderIframe()">Visualizar Página</button>
+                </div>
             </div>
         </div>
         
 
         <div id="containerPrimary">
 
-            <div id="containerPreview" class="content">
+            <div id="containerPreview">
                 <div class="form-group">
-                    <div id="previewContainer">
+                    <div class="content" id="previewContainer">
                         <iframe id="pagina"></iframe>
                     </div>
                 </div>

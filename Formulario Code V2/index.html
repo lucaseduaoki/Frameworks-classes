@@ -138,7 +138,7 @@
                             <div class="d-flex align-items-center mb-2">
                                 <input type="text" name="links" class="form-control me-2" placeholder="Texto do link" style="flex: 2;">
                                 <input type="file" name="href" class="form-control me-2" style="flex: 2;">
-                                <button type="button" class="btn btn-primary" onclick="addHtmlLinks()" style="flex: 0 0 auto;">+</button>
+                                <button type="button" class="btn btn-primary" onclick="criarLinks()" style="flex: 0 0 auto;">+</button>
                             </div>
                         </div>
                     </div>
@@ -171,8 +171,8 @@
                 </div>
                 <hr>
                 <div class="d-flex justify-content-center gap-3 mt-4">
-                    <button class="btn btn-primary" id="containerCod" onclick="mostraOcultaDiv('containerPreview'), gerarCodigo()">Gerar Código</button>
-                    <button class="btn btn-primary" id="containerPreview" onclick="mostraOcultaDiv('containerPreview'), renderIframe()">Visualizar Página</button>
+                    <button class="btn btn-primary" onclick="mostraOcultaDiv('containerCod'), gerarCodigo()">Gerar Código</button>
+                    <button class="btn btn-primary" onclick="mostraOcultaDiv('containerPreview'), renderIframe()">Visualizar Página</button>
                 </div>
             </div>
         </div>
@@ -180,7 +180,7 @@
 
         <div id="containerPrimary">
 
-            <div id="containerPreview">
+            <div id="containerPreview" class="content">
                 <div class="form-group">
                     <div class="content" id="previewContainer">
                         <iframe id="pagina"></iframe>
@@ -188,24 +188,26 @@
                 </div>
             </div>
 
-            <div class="code-html">
-                <div class="form-group">
-                    <label class="html">
-                        <h2>HTML</h2>
-                    </label>
-                    <textarea class="form-control" cols="100" rows="30" id="codeHTML"></textarea><br>
-                    <button class="btn btn-success" onclick="download('codeHTML', 'index.html')">Download do código</button>
+            <div id="containerCod" class="content active">
+                <div class="code-html">
+                    <div class="form-group">
+                        <label class="html">
+                            <h2>HTML</h2>
+                        </label>
+                        <textarea class="form-control" cols="100" rows="30" id="codeHTML"></textarea><br>
+                        <button class="btn btn-success" onclick="download('codeHTML', 'index.html')">Download do código</button>
+                    </div>
                 </div>
-            </div>
 
-            <div class="code-css">
-                <div class="form-group">
-                    <label class="css">
-                        <h2>CSS</h2>
-                    </label>
-                    <textarea class="form-control" cols="100" rows="30" id="codeCSS"></textarea><br>
-                    <button class="btn btn-success" onclick="download('codeCSS', 'estilo.css')">Download do código</button>
-                </div>
+                <div class="code-css">
+                    <div class="form-group">
+                        <label class="css">
+                            <h2>CSS</h2>
+                        </label>
+                        <textarea class="form-control" cols="100" rows="30" id="codeCSS"></textarea><br>
+                        <button class="btn btn-success" onclick="download('codeCSS', 'estilo.css')">Download do código</button>
+                    </div>
+                </div> 
             </div>
         </div>
     </div>
